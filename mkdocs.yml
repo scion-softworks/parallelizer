@@ -1,5 +1,7 @@
 site_name: Parallelizer
 site_url: https://artzified.github.io/parallelizer/
+repo_url: https://github.com/Artzified/parallelizer
+repo_name: Artzified/parallelizer
 nav:
   - Home: index.md
   - Guides:
