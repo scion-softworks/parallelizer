@@ -1,8 +1,8 @@
-name: ci 
+name: ci
 on:
   push:
     branches:
-      - master 
+      - master
       - main
 permissions:
   contents: write
@@ -25,5 +25,10 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs-material 
-      - run: mkdocs gh-deploy --force
+      - run: pip install mkdocs-material
+      - run: mkdocs build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
