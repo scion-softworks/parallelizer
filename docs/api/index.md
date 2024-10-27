@@ -13,7 +13,7 @@ Contains constructor methods to instantiate classes
 !!! note
     You may only use this function in the Job Script!
 
-Creates a new message bind to the actor, which has a middleware for handling `batchSize`. The return value of the callback will be sent via the bindable event to be put back together by the [Job Scheduler](/api/job-scheduler.md)
+Creates a new message bind to the actor, which has a middleware for handling `batchSize`. The return value of the callback will be sent via the bindable event to be put back together by the [Job Scheduler](/parallelizer/api/job-scheduler)
 
 __Parameters__
 
@@ -29,7 +29,7 @@ __Returns__
 ---
 
 ### `CreateJobScheduler`
-Create a new population of actors alongside the Job Script and creates a new [Job Scheduler](/api/job-scheduler.md)
+Create a new population of actors alongside the Job Script and creates a new [Job Scheduler](/parallelizer/api/job-scheduler)
 
 __Parameters__
 
@@ -42,7 +42,7 @@ Where to store the actors along with the Job Scripts once created.
 
 __Returns__
 
-- [`Job Scheduler`](/api/job-scheduler.md)
+- [`Job Scheduler`](/parallelizer/api/job-scheduler)
 
 ---
 
@@ -51,9 +51,9 @@ Creates a new container to store the SharedTable version of your data
 
 __Parameters__
 
-- __data:__ [`InstructionTableData`](/api/types#instructiontabledata)<br>
+- __data:__ [`InstructionTableData`](/parallelizer/api/types#instructiontabledata)<br>
 The data to store as a SharedTable, only certain types are allowed
 
 __Returns__
 
-- [`InstructionData`](/api/instruction-data.md)
+- [`InstructionData`](/parallelizer/api/instruction-data)

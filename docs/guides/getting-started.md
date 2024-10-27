@@ -15,7 +15,7 @@ One of the main goal of Parallel Processing is to reduce the strain and lag from
 - Enemy AI
 
 ## Installation
-If you haven't already installed the module, refer to [Installation](/guides/installation)
+If you haven't already installed the module, refer to [Installation](/parallelizer/guides/installation)
 
 ## Setup
 For the sake of simplicity, place the module in `ReplicatedStorage` for easy access.

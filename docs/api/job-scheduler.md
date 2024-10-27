@@ -28,14 +28,14 @@ Defers the dispatch that will go through all actors, if the threadCount is bigge
 __Parameters__
 
 - __threadName:__ `string`<br>
-The unique string identifier bound to the actors by [`Parallelizer.CreateThread`](/api/#createthread) 
+The unique string identifier bound to the actors by [`Parallelizer.CreateThread`](/parallelizer/api/#createthread) 
 - __threadCount:__ `number`<br>
 The number of threads to be dispatched across the actors. Usually, this is the number of data you want to compute. For example, for a 100x100 renderer, the `threadCount` will be `100*100`
 - __batchSize:__ `number`<br>
 How many threads should one actor process
 - __callback:__ `(result: {any}) -> void`<br>
 The callback to be called after all workers has finished sending their work
-- __instData:__ [`InstructionData`](/api/types/#instructiondata)<br>
+- __instData:__ [`InstructionData`](/parallelizer/api/types/#instructiondata)<br>
 The instruction data to be sent to the actors
 
 __Returns__
@@ -56,12 +56,12 @@ A proxy to [`DispatchAsync`](#dispatchasync), batchSize will be calculated autom
 __Parameters__
 
 - __threadName:__ `string`<br>
-The unique string identifier bound to the actors by [`Parallelizer.CreateThread`](/api/#createthread) 
+The unique string identifier bound to the actors by [`Parallelizer.CreateThread`](/parallelizer/api/#createthread) 
 - __threadCount:__ `number`<br>
 The number of threads to be dispatched across the actors. Usually, this is the number of data you want to compute. For example, for a 100x100 renderer, the `threadCount` will be `100*100`
 - __callback:__ `(result: {any}) -> void`<br>
 The callback to be called after all workers has finished sending their work
-- __instData:__ [`InstructionData`](/api/types/#instructiondata)<br>
+- __instData:__ [`InstructionData`](/parallelizer/api/types/#instructiondata)<br>
 The instruction data to be sent to the actors
 
 __Returns__
