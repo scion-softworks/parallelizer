@@ -51,4 +51,4 @@ theme:
     - header.autohide
   palette:
     scheme: slate
-    primary: indigo
+    primary: teal
