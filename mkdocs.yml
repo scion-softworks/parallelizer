@@ -1,0 +1,39 @@
+site_name: Parallelizer
+site_url: https://parallelizer.github.io/
+nav:
+  - Home: index.md
+  - Guides:
+    - Getting Started: guides/getting-started.md
+    - Installation: guides/installation.md
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+theme:
+  name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    edit: material/pencil
+    view: material/eye
+    admonition:
+      warning: material/alert
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - content.action.edit
+    - content.code.copy
+    - content.code.select
+    - content.tooltips
+    - header.autohide
+  palette:
+    scheme: slate
+    primary: indigo
