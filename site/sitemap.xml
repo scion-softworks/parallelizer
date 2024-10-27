@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://artzified.github.io/parallelizer/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://artzified.github.io/parallelizer/api/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://artzified.github.io/parallelizer/api/job-scheduler/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://artzified.github.io/parallelizer/api/types/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://artzified.github.io/parallelizer/guides/getting-started/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>https://artzified.github.io/parallelizer/guides/installation/</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+</urlset>
