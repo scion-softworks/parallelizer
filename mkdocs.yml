@@ -5,6 +5,10 @@ nav:
   - Guides:
     - Getting Started: guides/getting-started.md
     - Installation: guides/installation.md
+  - References:
+    - Parallelizer: api/index.md
+    - Job Scheduler: api/job-scheduler.md
+    - Types: api/types.md
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -20,7 +24,18 @@ theme:
     edit: material/pencil
     view: material/eye
     admonition:
-      warning: material/alert
+      note: fontawesome/solid/note-sticky
+      abstract: fontawesome/solid/book
+      info: fontawesome/solid/circle-info
+      tip: fontawesome/solid/bullhorn
+      success: fontawesome/solid/check
+      question: fontawesome/solid/circle-question
+      warning: fontawesome/solid/triangle-exclamation
+      failure: fontawesome/solid/bomb
+      danger: fontawesome/solid/skull
+      bug: fontawesome/solid/robot
+      example: fontawesome/solid/flask
+      quote: fontawesome/solid/quote-left
   features:
     - navigation.instant
     - navigation.instant.progress

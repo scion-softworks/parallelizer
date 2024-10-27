@@ -16,13 +16,13 @@ hide:
 
     ---
 
-    With no added dependencies, Parallelizer prioritizes __simplicity and efficiency__
+    With no added dependencies, Parallelizer prioritizes __simplicity and efficiency__.
 
 -   ## __✨Performant__
 
     ---
 
-    Designed with __minimal footprint__, Parallelizer uses only the necessary resources, without creating any additional overhead
+    Designed with __minimal footprint__, Parallelizer uses only the necessary resources, without creating any additional overhead.
 
 </div>
 
