@@ -99,7 +99,7 @@ local RootInstruction = Parallelizer.CreateInstructionData({2}) -- the 2th root 
 -- Get the nth root from 1 to 1024
 JobScheduler:DispatchEquallyAsync('CalculateNthRoot', 1024, function(result)
     print(result) -- The calculated roots up to 1024
-end)
+end, RootInstruction)
 
 print('This will run before the dispatch has finished!')
 ```
