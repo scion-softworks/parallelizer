@@ -10,7 +10,7 @@ hide:
 
     ---
 
-    Parallelizer uses a bindable-based approach that is ~<span style="color:orange;font-size:26px">__2x faster__</span> than its SharedTable counterpart.
+    Parallelizer uses a bindable-based approach that is ~<span style="color:orange;font-size:24px">__2x faster__</span> than its SharedTable counterpart.
 
 -   ## __🪶Lightweight__
 
