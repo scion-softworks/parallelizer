@@ -28,6 +28,6 @@ hide:
 
 ---
 <div style="text-align: center; margin-top: 20px;">
-    <a href="./guides/getting-started" class="md-button md-button--primary">Get Started</a>
+    <a href="./guides/quick-start/getting-started" class="md-button md-button--primary">Get Started</a>
     <a href="./reference/" class="md-button">Reference</a>
 </div>
