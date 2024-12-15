@@ -1,26 +1,29 @@
-# Parallelizer
 Contains constructor methods to instantiate classes
 
 ## Properties
 
 ---
 
+### `DataType`
+- [`{[DataType]: {DataType | string}}`](/parallelizer/api/types#datatype)<br>
+Contains all the supported DataTypes for packet definitions
+
 ## Functions
 
 ---
 
-### `CreateThread`
-!!! note
-    You may only use this function in the Job Script!
+### `ListenToTask`
 
-Creates a new message bind to the actor, which has a middleware for handling `batchSize`. The return value of the callback will be sent via the bindable event to be put back together by the [Job Scheduler](/parallelizer/api/job-scheduler)
+Creates 3 new message binds to the actor, one will caches the packet type definitions, the other will cache the local memory, this will not be bound if `cacheLocalMemory` is `false`. The last one will process the actual task, which has a middleware that will serialize the return values of the callback and batch them accordingly.
 
 __Parameters__
 
 - __actor:__ `Actor`<br>
-The actor to bind the message 
-- __callback:__ `(threadId: number, instructionTable: SharedTable) -> any`<br>
-A callback with threadId as the index order of the thread and a SharedTable for constants, or can be used as a shared memory/resource
+
+- __taskName:__ `string`<br> 
+
+- __callback:__`(taskId: number, memory: SharedTable?, ...Types.SharedTableValues) -> {Types.SerializableValues}`<br>
+- __cacheLocalMemory:__ `boolean`<br>
 
 __Returns__
 
@@ -28,32 +31,15 @@ __Returns__
 
 ---
 
-### `CreateJobScheduler`
-Create a new population of actors alongside the Job Script and creates a new [Job Scheduler](/parallelizer/api/job-scheduler)
+### `CreateTaskCoordinator`
+Create a new population of actors. The number of actors should ideally be a power of 2, refer to [Multithreading Best Practices](https://create.roblox.com/docs/scripting/multithreading#best-practices:~:text=Use%20the%20Right%20Number%20of%20Actors) to determine the right number of actors.
 
 __Parameters__
 
-- __jobScript:__ `Script | LocalScript`<br>
-The script that will be cloned across the actors
-- __actorCount:__ `number`<br>
-How many actors will be created, ideally should be a power of 2. Refer to [Multithreading Best Practices](https://create.roblox.com/docs/scripting/multithreading#best-practices:~:text=Use%20the%20Right%20Number%20of%20Actors) to determine the right number of actors
+- __workerScript:__ `Script | LocalScript`<br>
 - __actorStorage:__ `Instance`<br>
-Where to store the actors along with the Job Scripts once created.
+- __actorCount:__ `number`<br>
 
 __Returns__
 
-- [`Job Scheduler`](/parallelizer/api/job-scheduler)
-
----
-
-### `CreateInstructionData`
-Creates a new container to store the SharedTable version of your data
-
-__Parameters__
-
-- __data:__ [`InstructionTableData`](/parallelizer/api/types#instructiontabledata)<br>
-The data to store as a SharedTable, only certain types are allowed
-
-__Returns__
-
-- [`InstructionData`](/parallelizer/api/instruction-data)
+- [`TaskCoordinator`](/parallelizer/api/task-coordinator)

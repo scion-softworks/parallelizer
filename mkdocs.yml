@@ -7,12 +7,12 @@ nav:
   - Guides:
     - Quick Start: 
       - Installation: guides/quick-start/installation.md
-      - Your First Project: guides/quick-start/first-project.md
+      - Getting Started: guides/quick-start/getting-started.md
     - Tips:
       - Deriving data from id: guides/tips/derive-id.md
   - References:
     - Parallelizer: api/index.md
-    - Job Scheduler: api/job-scheduler.md
+    - Task Coordinator: api/task-coordinator.md
     - Types: api/types.md
   - Extras:
     - To-Do List: extras/todo.md

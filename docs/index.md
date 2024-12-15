@@ -10,7 +10,7 @@ hide:
 
     ---
 
-    Parallelizer uses a bindable-based approach that is ~<span style="color:orange;font-size:24px">__2x faster__</span> than its SharedTable counterpart.
+    Parallelizer is __optimized for large-scale tasks__ and fast serialization in mind.
 
 -   ## __🪶Lightweight__
 
@@ -22,7 +22,7 @@ hide:
 
     ---
 
-    Designed with __minimal footprint__, Parallelizer uses only the necessary resources, without creating any additional overhead.
+    Designed with __minimal footprint__, Parallelizer uses only the necessary resources, minimizing additional overhead.
 
 </div>
 
