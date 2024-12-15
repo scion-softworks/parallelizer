@@ -60,7 +60,7 @@ function Serializer.alloc(buf: buffer, cursor: number, bytes: number, size: numb
 	return buf, size
 end
 
-function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType: string, cursor: number, buf: buffer, size: number, bytes: number)
+function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType: string, cursor: number, buf: buffer, size: number, bytes: number, dontAlloc: boolean?)
 	local writeValue: any = value -- god damn it i cant get typechecking to work
 
 	local function alloc()
@@ -72,7 +72,7 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		cursor += cursorOffsetBytes or bytes
 	end
 
-	alloc()
+	if not dontAlloc then alloc() end
 
 	--> Primitive Types
 	if dataType == 'u8' then
