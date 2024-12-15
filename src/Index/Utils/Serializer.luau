@@ -73,7 +73,7 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	end
 
 	local function allocAndWrite<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
-		buf, size = alloc(bytes)
+		alloc(bytes)
 
 		callback(buf, cursor, writeValue, ...)
 		cursor += bytes
