@@ -20,34 +20,33 @@ function TaskCoordinator.DefineTask(
 	local packetDef = taskMetaData.packet
 
 	local defSize = 8
-	local strLenSize = 8
-	local defBuf = buffer.create(8)
-	local strLenBuf = buffer.create(8)
-
-	local strLenCount = 0
+	local packetBytesSize = #packetDef * 4
+	local defBuf = buffer.create(defSize)
+	local packetBytesBuf = buffer.create(packetBytesSize)
 
 	local defCursor = 0
-	local strLenCursor = 0
+	local packetBytesCursor = 0
+
+	local bytesNeeded = 0
 
 	for _, dataType in packetDef do
 		local dataTypeLiteral = dataType[1]
-		local len = dataType[2]
-		defBuf, defCursor, defSize = Serializer.SerializeToBuffer(dataTypeLiteral, 'str', defCursor, defBuf, defSize, #dataTypeLiteral)
+		local bytes = tonumber(dataType[2]) :: number
 
-		if len ~= nil then
-			strLenBuf, strLenCursor, strLenSize = Serializer.SerializeToBuffer(tonumber(len) :: number, 'u32', strLenCursor, strLenBuf, strLenSize)
-			strLenCount += 1
-		end
+		bytesNeeded += bytes
+
+		defBuf, defCursor, defSize = Serializer.SerializeToBuffer(dataTypeLiteral, 'str', defCursor, defBuf, defSize, #dataTypeLiteral+4)
+		packetBytesBuf, packetBytesCursor, packetBytesSize = Serializer.SerializeToBuffer(bytes, 'u32', packetBytesCursor, packetBytesBuf, packetBytesSize, 4)
 	end
 
 	task.defer(function()
 		for _, actor: Actor in self.actors do
-			actor:SendMessage(`{taskName}-parallelizer-internal-def`, defBuf, #packetDef, strLenBuf, strLenCount)
+			actor:SendMessage(`{taskName}-parallelizer-internal-def`, defBuf, packetBytesBuf, #packetDef, bytesNeeded)
 			actor:SendMessage(`{taskName}-parallelizer-internal-mem`, taskMetaData.localMemory)
 		end
 	end)
 
-	return { taskName = taskName, packetDef = taskMetaData.packet }
+	return { taskName = taskName, packetDef = packetDef, packetBytesNeeded = bytesNeeded }
 end
 
 function TaskCoordinator.DispatchTaskEqually(
@@ -86,7 +85,7 @@ function TaskCoordinator.DispatchTask(
 			connection:Disconnect()
 
 			if useMergedBuffer then
-				local size = 32
+				local size = taskObject.packetBytesNeeded
 				local buf = buffer.create(size)
 
 				debug.profilebegin('packet batch buffer merging')
@@ -94,9 +93,6 @@ function TaskCoordinator.DispatchTask(
 				local cursor = 0
 				for _, bufferStringBatch in sharedBufferResult do
 					local bufferBatch = buffer.fromstring(bufferStringBatch)
-					local bufferBatchSize = buffer.len(bufferBatch)
-
-					Serializer.alloc(buf, cursor, bufferBatchSize, size)
 
 					buffer.copy(buf, cursor, bufferBatch)
 				end
@@ -110,9 +106,10 @@ function TaskCoordinator.DispatchTask(
 				debug.profilebegin('packet batch deserialization')
 
 				for _, bufferStringBatch in sharedBufferResult do
-					local cursor = 0
 					local bufferBatch = buffer.fromstring(bufferStringBatch)
 					for batch = 1, batchSize do
+						local cursor = 0
+
 						for i, dataType in taskObject.packetDef do
 							cursor = Deserializer.deserializeToTable(bufferBatch, cursor, dataType[1], data)
 						end
