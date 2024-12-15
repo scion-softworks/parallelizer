@@ -8,14 +8,11 @@ nav:
     - Quick Start: 
       - Installation: guides/quick-start/installation.md
       - Getting Started: guides/quick-start/getting-started.md
-    - Tips:
-      - Deriving data from id: guides/tips/derive-id.md
   - References:
     - Parallelizer: api/index.md
     - Task Coordinator: api/task-coordinator.md
     - Types: api/types.md
   - Extras:
-    - To-Do List: extras/todo.md
     - Philosophy: extras/philosophy.md
 markdown_extensions:
   - tables
