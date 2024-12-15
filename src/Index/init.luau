@@ -66,7 +66,7 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		debug.profilebegin('packet batch buffer serialization')
 		
 		local cursor = 0
-		local size = packetDefBytesNeeded
+		local size = packetDefBytesNeeded * batchSize
 		local batchBuf: buffer = buffer.create(size)
 
 		local packetDefLen = #packetDefData
@@ -78,8 +78,7 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 				local dataType: string = packetDefData[dataIndex]
 				
 				assert(dataType ~= nil, 'Task return callback value out of bounds')
-												
-				batchBuf, cursor, size = Serializer.SerializeToBuffer(responseBatch[dataIndex], dataType, cursor, batchBuf, size, packetBytesData[dataIndex])
+				batchBuf, cursor, size = Serializer.SerializeToBuffer(responseBatch[dataIndex], dataType, cursor, batchBuf, size, packetBytesData[dataIndex], true)
 			end
 		end
 		
