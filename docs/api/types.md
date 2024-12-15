@@ -30,7 +30,8 @@ Vector2 | Vector3 | CFrame | Color3 | UDim | UDim2 | number | boolean | buffer
 ```luau
 {
 	taskName: string;
-	packetDef: PacketDefinition
+	packetDef: PacketDefinition;
+	packetBytesNeeded: number
 }
 ```
 
