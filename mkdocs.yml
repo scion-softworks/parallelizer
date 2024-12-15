@@ -5,18 +5,28 @@ repo_name: Artzified/parallelizer
 nav:
   - Home: index.md
   - Guides:
-    - Getting Started: guides/getting-started.md
-    - Installation: guides/installation.md
+    - Quick Start: 
+      - Installation: guides/quick-start/installation.md
+      - Your First Project: guides/quick-start/first-project.md
+    - Tips:
+      - Deriving data from id: guides/tips/derive-id.md
   - References:
     - Parallelizer: api/index.md
     - Job Scheduler: api/job-scheduler.md
     - Types: api/types.md
+  - Extras:
+    - To-Do List: extras/todo.md
+    - Philosophy: extras/philosophy.md
 markdown_extensions:
+  - tables
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   - attr_list
   - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 theme:
   name: material
   font:
@@ -43,7 +53,6 @@ theme:
     - navigation.instant.progress
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.path
     - navigation.top
     - navigation.footer
     - content.action.edit

@@ -1,0 +1,12 @@
+{
+	"name": "parallelizer",
+	"tree": {
+		"$className": "DataModel",
+
+		"ReplicatedStorage": {
+			"Parallelizer": {
+                "$path": "src"
+			}
+		}
+	}
+}
