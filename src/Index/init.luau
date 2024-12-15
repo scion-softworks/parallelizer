@@ -1,3 +1,5 @@
+--!native
+--!optimize 2
 local Types = require(script.types)
 local TaskCoordinator = require(script.Class.TaskCoordinator)
 
@@ -10,8 +12,9 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 	assert(taskName:match('%-parallelizer-internal%-.+$') == nil, 'Task name cannot end with "-parallelizer-internal-..."')
 	
 	-->> Internal Local Memory
+	local packetDefBytesNeeded: number
 	local packetDefData: {string} = {}
-	local strLengthData: {number} = {}
+	local packetBytesData: {number} = {}
 
 	-->> User Local Memory
 	local userMemory: SharedTable
@@ -22,22 +25,17 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		end)
 	end
 
-	actor:BindToMessageParallel(`{taskName}-parallelizer-internal-def`, function(packetDefBuf: buffer, packetDefCount: number, strLengthBuf: buffer, strLenCount: number)
+	actor:BindToMessageParallel(`{taskName}-parallelizer-internal-def`, function(packetDefBuf: buffer, packetBytesBuf: buffer, packetDefCount: number, bytesNeeded: number)
+		packetDefBytesNeeded = bytesNeeded
+
 		local packetDefCursor = 0
-		local strLenCursor = 0
+		local packetBytesCursor = 0
 		
-		debug.profilebegin('deserialize packet def buffer')
+		debug.profilebegin('deserialize packet def buffer and packet bytes buffer')
 
 		for _ = 1, packetDefCount do
 			packetDefCursor = Deserializer.deserializeToTable(packetDefBuf, packetDefCursor, 'str', packetDefData)
-		end
-
-		debug.profileend()
-
-		debug.profilebegin('deserialize str length buffer')
-
-		for _ = 1, strLenCount do
-			strLenCursor = Deserializer.deserializeToTable(strLengthBuf, strLenCursor, 'u32', strLengthData)
+			packetBytesCursor = tonumber(Deserializer.deserializeToTable(packetBytesBuf, packetBytesCursor, 'u32', packetBytesData)) :: number
 		end
 
 		debug.profileend()
@@ -68,26 +66,20 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		debug.profilebegin('packet batch buffer serialization')
 		
 		local cursor = 0
-		local size = 1024
+		local size = packetDefBytesNeeded
 		local batchBuf: buffer = buffer.create(size)
-		
-		for _, data in responses do
-			local strCount = 0
 
-			for dataIndex, v in data do
+		local packetDefLen = #packetDefData
+		
+		for batch = 1, batchSize do
+			local responseBatch = responses[batch]
+
+			for dataIndex = 1, packetDefLen do
 				local dataType: string = packetDefData[dataIndex]
 				
 				assert(dataType ~= nil, 'Task return callback value out of bounds')
-				
-				local len: number?
-				if dataType == 'str' then
-					strCount += 1
-					len = tonumber(strLengthData[strCount])
-
-					assert(len, 'String length data not found')
-				end
 												
-				batchBuf, cursor, size = Serializer.SerializeToBuffer(v, dataType, cursor, batchBuf, size, len)
+				batchBuf, cursor, size = Serializer.SerializeToBuffer(responseBatch[dataIndex], dataType, cursor, batchBuf, size, packetBytesData[dataIndex])
 			end
 		end
 		
@@ -134,6 +126,7 @@ DataType.vector3 = require(DataTypeFolder.vector3)
 DataType.vector3i16 = require(DataTypeFolder.vector3i16)
 DataType.vector2 = require(DataTypeFolder.vector2)
 DataType.vector2i16 = require(DataTypeFolder.vector2i16)
+DataType.color3 = require(DataTypeFolder.color3)
 
 Index.DataType = DataType
 
