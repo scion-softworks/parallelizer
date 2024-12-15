@@ -1,1 +1,1 @@
-return { 'i32' }
+return { 'i32', '4' }

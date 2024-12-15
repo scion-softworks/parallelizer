@@ -1,1 +1,1 @@
-return { 'f32' }
+return { 'f32', '4' }

@@ -1,1 +1,1 @@
-return { 'u32' }
+return { 'u32', '4' }

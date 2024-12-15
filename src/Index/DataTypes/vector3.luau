@@ -1,1 +1,1 @@
-return { 'v3' }
+return { 'v3', '24' }

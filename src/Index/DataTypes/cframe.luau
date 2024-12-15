@@ -1,1 +1,1 @@
-return { 'cframe' }
+return { 'cframe', '48' }

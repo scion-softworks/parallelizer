@@ -1,1 +1,1 @@
-return { 'u8' }
+return { 'u8', '1' }

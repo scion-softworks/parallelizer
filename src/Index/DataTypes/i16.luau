@@ -1,1 +1,1 @@
-return { 'i16' }
+return { 'i16', '2' }

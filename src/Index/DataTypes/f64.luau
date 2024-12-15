@@ -1,1 +1,1 @@
-return { 'f64' }
+return { 'f64', '8' }

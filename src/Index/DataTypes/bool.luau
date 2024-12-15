@@ -1,1 +1,1 @@
-return { 'bool' }
+return { 'bool', '1' }

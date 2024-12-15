@@ -1,1 +1,1 @@
-return { 'color3' }
+return { 'color3', '24' }
