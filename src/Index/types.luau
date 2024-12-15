@@ -8,7 +8,8 @@ export type TaskMetaData = {
 }
 export type Task = {
 	taskName: string;
-	packetDef: PacketDefinition
+	packetDef: PacketDefinition;
+	packetBytesNeeded: number;
 }
 export type TaskCoordinator = {
 	actors: {Actor};
