@@ -1,91 +1,103 @@
 --!native
+--!optimize 2
+
 local Types = require(script.Parent.Parent.types)
 local Deserializer = {}
+
+local readu8 = buffer.readu8
+local readu16 = buffer.readu16
+local readu32 = buffer.readu32
+local readi8 = buffer.readi8
+local readi16 = buffer.readi16
+local readi32 = buffer.readi32
+local readf32 = buffer.readf32
+local readf64 = buffer.readf64
+local readstring = buffer.readstring
 
 function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string): (Types.SerializableValues, number)
 	local value: Types.SerializableValues
 
 	if dataType == 'u8' then
-		value = buffer.readu8(buf, cursor)
+		value = readu8(buf, cursor)
 		cursor += 1
 	elseif dataType == 'u16' then
-		value = buffer.readu16(buf, cursor)
+		value = readu16(buf, cursor)
 		cursor += 2
 	elseif dataType == 'u32' then
-		value = buffer.readu32(buf, cursor)
+		value = readu32(buf, cursor)
 		cursor += 4
 	elseif dataType == 'i8' then
-		value = buffer.readi8(buf, cursor)
+		value = readi8(buf, cursor)
 		cursor += 1
 	elseif dataType == 'i16' then
-		value = buffer.readi16(buf, cursor)
+		value = readi16(buf, cursor)
 		cursor += 2
 	elseif dataType == 'i32' then
-		value = buffer.readi32(buf, cursor)
+		value = readi32(buf, cursor)
 		cursor += 4
 	elseif dataType == 'f32' then
-		value = buffer.readf32(buf, cursor)
+		value = readf32(buf, cursor)
 		cursor += 4
 	elseif dataType == 'f64' then
-		value = buffer.readf64(buf, cursor)
+		value = readf64(buf, cursor)
 		cursor += 8
 	elseif dataType == 'bool' then
-	  	value = buffer.readu8(buf, cursor) ~= 0
+	  	value = readu8(buf, cursor) ~= 0
 		cursor += 1
 	elseif dataType == 'str' then
-		local len = buffer.readu32(buf, cursor)
+		local len = readu32(buf, cursor)
 		cursor += 4
-		value = buffer.readstring(buf, cursor, len)
+		value = readstring(buf, cursor, len)
 		cursor += len
 	elseif dataType == 'v3' then
-		local x = buffer.readf64(buf, cursor)
+		local x = readf64(buf, cursor)
 		cursor += 8
-		local y = buffer.readf64(buf, cursor)
+		local y = readf64(buf, cursor)
 		cursor += 8
-		local z = buffer.readf64(buf, cursor)
+		local z = readf64(buf, cursor)
 		cursor += 8
 		value = Vector3.new(x, y, z)
 	elseif dataType == 'v3i16' then
-		local x = buffer.readi16(buf, cursor)
+		local x = readi16(buf, cursor)
 		cursor += 2
-		local y = buffer.readi16(buf, cursor)
+		local y = readi16(buf, cursor)
 		cursor += 2
-		local z = buffer.readi16(buf, cursor)
+		local z = readi16(buf, cursor)
 		cursor += 2
 		value = Vector3.new(x, y, z)
 	elseif dataType == 'v2' then
-		local x = buffer.readf64(buf, cursor)
+		local x = readf64(buf, cursor)
 		cursor += 8
-		local y = buffer.readf64(buf, cursor)
+		local y = readf64(buf, cursor)
 		cursor += 8
 		value = Vector2.new(x, y)
 	elseif dataType == 'v2i16' then
-		local x = buffer.readi16(buf, cursor)
+		local x = readi16(buf, cursor)
 		cursor += 2
-		local y = buffer.readi16(buf, cursor)
+		local y = readi16(buf, cursor)
 		cursor += 2
 		value = Vector2.new(x, y)
 	elseif dataType == 'cframe' then
-		local x = buffer.readf64(buf, cursor)
+		local x = readf64(buf, cursor)
 		cursor += 8
-		local y = buffer.readf64(buf, cursor)
+		local y = readf64(buf, cursor)
 		cursor += 8
-		local z = buffer.readf64(buf, cursor)
+		local z = readf64(buf, cursor)
 		cursor += 8
 
-		local rx = buffer.readf64(buf, cursor)
+		local rx = readf64(buf, cursor)
 		cursor += 8
-		local ry = buffer.readf64(buf, cursor)
+		local ry = readf64(buf, cursor)
 		cursor += 8
-		local rz = buffer.readf64(buf, cursor)
+		local rz = readf64(buf, cursor)
 		cursor += 8
 		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
 	elseif dataType == 'color3' then
-		local r = buffer.readf64(buf, cursor)
+		local r = readf64(buf, cursor)
 		cursor += 8
-		local g = buffer.readf64(buf, cursor)
+		local g = readf64(buf, cursor)
 		cursor += 8
-		local b = buffer.readf64(buf, cursor)
+		local b = readf64(buf, cursor)
 		cursor += 8
 		value = Color3.new(r, g, b)
 	end
