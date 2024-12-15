@@ -1,4 +1,5 @@
 --!native
+--!optimize 2
 local Types = require(script.Parent.Parent.types)
 
 local Serializer = {}
@@ -62,8 +63,17 @@ end
 function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType: string, cursor: number, buf: buffer, size: number, len: number?)
 	local writeValue: any = value -- god damn it i cant get typechecking to work
 
-	local function allocAndWrite<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
+	local function alloc(bytes: number)
 		buf, size = Serializer.alloc(buf, cursor, bytes, size)
+	end
+
+	local function writeNoAlloc<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
+		callback(buf, cursor, writeValue, ...)
+		cursor += bytes
+	end
+
+	local function allocAndWrite<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
+		buf, size = alloc(bytes)
 
 		callback(buf, cursor, writeValue, ...)
 		cursor += bytes
@@ -102,65 +112,77 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'v3' then --> Non-primitive types
 		assert(typeof(value) == 'Vector3', 'Must be a Vector3')
 
+		alloc(24)
+
 		writeValue = value.X
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = value.Y
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = value.Z
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 	elseif dataType == 'v3i16' then
 		assert(typeof(value) == 'Vector3' or typeof(value) == 'Vector3int16', 'Must be a Vector3 or Vector3int16')
 
+		alloc(24)
+
 		writeValue = value.X
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16, 2)
 		writeValue = value.Y
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16, 2)
 		writeValue = value.Z
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16, 2)
 	elseif dataType == 'v2' then
 		assert(typeof(value) == 'Vector2', 'Must be a Vector2')
 
+		alloc(16)
+
 		writeValue = value.X
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = value.Y
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 	elseif dataType == 'v2i16' then
 		assert(typeof(value) == 'Vector2' or typeof(value) == 'Vector2int16', 'Must be a Vector2 or Vector2int16')
 
+		alloc(16)
+
 		writeValue = value.X
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16, 2)
 		writeValue = value.Y
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16, 2)
 	elseif dataType == 'cframe' then
 		assert(typeof(value) == 'CFrame', 'Must be a CFrame')
 
 		local x, y, z = value.X, value.Y, value.Z
 		local rx, ry, rz = value:ToEulerAnglesXYZ()
 
+		alloc(48)
+
 		writeValue = x
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = y
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = z
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 
 		writeValue = rx
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = ry
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = rz
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 	elseif dataType == 'color3' then
 		assert(typeof(value) == 'Color3', 'Must be a Color3')
 
 		local r, g, b = value.R, value.G, value.B
 		
+		alloc(24)
+
 		writeValue = r
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = g
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 		writeValue = b
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64, 8)
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end
