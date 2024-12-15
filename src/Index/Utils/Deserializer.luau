@@ -80,6 +80,14 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 		local rz = buffer.readf64(buf, cursor)
 		cursor += 8
 		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+	elseif dataType == 'color3' then
+		local r = buffer.readf64(buf, cursor)
+		cursor += 8
+		local g = buffer.readf64(buf, cursor)
+		cursor += 8
+		local b = buffer.readf64(buf, cursor)
+		cursor += 8
+		value = Color3.new(r, g, b)
 	end
 
 	return value, cursor

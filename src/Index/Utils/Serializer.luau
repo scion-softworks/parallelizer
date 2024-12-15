@@ -150,6 +150,17 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		allocAndWrite(writef64, 8)
 		writeValue = rz
 		allocAndWrite(writef64, 8)
+	elseif dataType == 'color3' then
+		assert(typeof(value) == 'Color3', 'Must be a Color3')
+
+		local r, g, b = value.R, value.G, value.B
+		
+		writeValue = r
+		allocAndWrite(writef64, 8)
+		writeValue = g
+		allocAndWrite(writef64, 8)
+		writeValue = b
+		allocAndWrite(writef64, 8)
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end

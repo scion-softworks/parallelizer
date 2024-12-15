@@ -1,6 +1,6 @@
-export type SerializableValues = number | boolean | string | Vector3 | Vector3int16 | Vector2 | Vector2int16 | CFrame
+export type SerializableValues = number | boolean | string | Vector3 | Vector3int16 | Vector2 | Vector2int16 | CFrame | Color3
 export type SharedTableValues = Vector2 | Vector3 | CFrame | Color3 | UDim | UDim2 | number | boolean | buffer
-export type DataType = 'u8' | 'u16' | 'u32' | 'i8' | 'i16' | 'i32' | 'f32' | 'f64' | 'bool' | 'str' | 'cframe' | 'v3' | 'v3i16' | 'v2' | 'v2i16'
+export type DataType = 'u8' | 'u16' | 'u32' | 'i8' | 'i16' | 'i32' | 'f32' | 'f64' | 'bool' | 'str' | 'cframe' | 'v3' | 'v3i16' | 'v2' | 'v2i16' | 'color3'
 export type PacketDefinition = { {DataType | string} }
 export type TaskMetaData = { 
 	packet: PacketDefinition;
