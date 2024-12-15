@@ -60,59 +60,50 @@ function Serializer.alloc(buf: buffer, cursor: number, bytes: number, size: numb
 	return buf, size
 end
 
-function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType: string, cursor: number, buf: buffer, size: number, len: number?)
+function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType: string, cursor: number, buf: buffer, size: number, bytes: number)
 	local writeValue: any = value -- god damn it i cant get typechecking to work
 
-	local function alloc(bytes: number)
+	local function alloc()
 		buf, size = Serializer.alloc(buf, cursor, bytes, size)
 	end
 
-	local function writeNoAlloc<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
+	local function writeNoAlloc<T>(callback: (buffer, number, T, number?) -> nil, cursorOffsetBytes: number?, ...)
 		callback(buf, cursor, writeValue, ...)
-		cursor += bytes
+		cursor += cursorOffsetBytes or bytes
 	end
 
-	local function allocAndWrite<T>(callback: (buffer, number, T, number?) -> nil, bytes: number, ...)
-		alloc(bytes)
-
-		callback(buf, cursor, writeValue, ...)
-		cursor += bytes
-	end
-
-	debug.profilebegin('buffer serialization')
+	alloc()
 
 	--> Primitive Types
 	if dataType == 'u8' then
-		allocAndWrite(writeu8, 1)
+		writeNoAlloc(writeu8)
 	elseif dataType == 'u16' then
-		allocAndWrite(writeu16, 2)
+		writeNoAlloc(writeu16)
 	elseif dataType == 'u32' then
-		allocAndWrite(writeu32, 4)
+		writeNoAlloc(writeu32)
 	elseif dataType == 'i8' then
-		allocAndWrite(writei8, 1)
+		writeNoAlloc(writei8)
 	elseif dataType == 'i16' then
-		allocAndWrite(writei16, 2)
+		writeNoAlloc(writei16)
 	elseif dataType == 'i32' then
-		allocAndWrite(writei32, 4)
+		writeNoAlloc(writei32)
 	elseif dataType == 'f32' then
-		allocAndWrite(writef32, 4)
+		writeNoAlloc(writef32)
 	elseif dataType == 'f64' then
-		allocAndWrite(writef64, 8)
+		writeNoAlloc(writef64)
 	elseif dataType == 'bool' then
-		value = if value then 1 else 0
-		allocAndWrite(writeu8, 1)
+		writeValue = if value then 1 else 0
+		writeNoAlloc(writeu8)
 	elseif dataType == 'str' then
-		assert(type(value) == 'string', 'Must be a string')
-		assert(len)
+		assert(type(value) == 'string')
 
+		local len = #value
 		writeValue = len
-		allocAndWrite(writeu32, 4)
+		writeNoAlloc(writeu32, 4)
 		writeValue = value
-		allocAndWrite(writestring, len, len)
+		writeNoAlloc(writestring, len)
 	elseif dataType == 'v3' then --> Non-primitive types
 		assert(typeof(value) == 'Vector3', 'Must be a Vector3')
-
-		alloc(24)
 
 		writeValue = value.X
 		writeNoAlloc(writef64, 8)
@@ -123,8 +114,6 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'v3i16' then
 		assert(typeof(value) == 'Vector3' or typeof(value) == 'Vector3int16', 'Must be a Vector3 or Vector3int16')
 
-		alloc(24)
-
 		writeValue = value.X
 		writeNoAlloc(writei16, 2)
 		writeValue = value.Y
@@ -134,16 +123,12 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'v2' then
 		assert(typeof(value) == 'Vector2', 'Must be a Vector2')
 
-		alloc(16)
-
 		writeValue = value.X
 		writeNoAlloc(writef64, 8)
 		writeValue = value.Y
 		writeNoAlloc(writef64, 8)
 	elseif dataType == 'v2i16' then
 		assert(typeof(value) == 'Vector2' or typeof(value) == 'Vector2int16', 'Must be a Vector2 or Vector2int16')
-
-		alloc(16)
 
 		writeValue = value.X
 		writeNoAlloc(writei16, 2)
@@ -154,8 +139,6 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 
 		local x, y, z = value.X, value.Y, value.Z
 		local rx, ry, rz = value:ToEulerAnglesXYZ()
-
-		alloc(48)
 
 		writeValue = x
 		writeNoAlloc(writef64, 8)
@@ -175,8 +158,6 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 
 		local r, g, b = value.R, value.G, value.B
 		
-		alloc(24)
-
 		writeValue = r
 		writeNoAlloc(writef64, 8)
 		writeValue = g
@@ -186,8 +167,6 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end
-
-	debug.profileend()
 
 	return buf, cursor, size
 end
