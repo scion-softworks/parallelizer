@@ -1,3 +1,3 @@
 return function(fixedLen: number)
-	return { 'str', tostring(fixedLen + 1) } -- 1 extra for the length
+	return { 'str', tostring(fixedLen + 4) } -- 4 extra for the length (u32)
 end
