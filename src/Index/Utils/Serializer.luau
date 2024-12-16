@@ -67,8 +67,8 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		buf, size = Serializer.alloc(buf, cursor, bytes, size)
 	end
 
-	local function writeNoAlloc<T>(callback: (buffer, number, T, number?) -> nil, cursorOffsetBytes: number?, ...)
-		callback(buf, cursor, writeValue, ...)
+	local function writeNoAlloc<T>(callback: (buffer, number, T, number?) -> nil, cursorOffsetBytes: number?)
+		callback(buf, cursor, writeValue)
 		cursor += cursorOffsetBytes or bytes
 	end
 
