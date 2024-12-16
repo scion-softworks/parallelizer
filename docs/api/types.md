@@ -10,7 +10,7 @@ Vector2 | Vector3 | CFrame | Color3 | UDim | UDim2 | number | boolean | buffer
 
 ## `DataType`
 ```luau
-'u8' | 'u16' | 'u32' | 'i8' | 'i16' | 'i32' | 'f32' | 'f64' | 'bool' | 'str' | 'cframe' | 'v3' | 'v3i16' | 'v2' | 'v2i16' | 'color3' | 'color3u8'
+'u8' | 'u16' | 'u32' | 'i8' | 'i16' | 'i32' | 'f32' | 'f64' | 'bool' | 'str' | 'cframe' | 'v3' | 'v3i16' | 'v2' | 'v2i16' | 'color3' | 'color3u8' | 'color3b16'
 ```
 
 ## `PacketDefinition`
