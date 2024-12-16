@@ -47,7 +47,7 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 
 		debug.profilebegin('batch task callback fire')
 		
-		local responses = {}
+		local responses = table.create(batchSize)
 		for taskId = startingTaskId, math.min(startingTaskId + (batchSize - 1), threadCount) do
 			local res = callback(taskId, userMemory, ...)
 			
