@@ -85,7 +85,7 @@ function TaskCoordinator.DispatchTask(
 			connection:Disconnect()
 
 			if useMergedBuffer then
-				local size = taskObject.packetBytesNeeded
+				local size = taskObject.packetBytesNeeded * batchSize
 				local buf = buffer.create(size)
 
 				debug.profilebegin('packet batch buffer merging')
