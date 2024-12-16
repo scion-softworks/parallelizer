@@ -144,6 +144,9 @@ function TaskCoordinator.Destroy(self: Types.TaskCoordinator)
 	for _, actor in self.actors do
 		actor:Destroy()
 	end
+
+	table.clear(self.actors)
+	table.clear(self.connections)
 end
 
 return TaskCoordinator :: Types.TaskCoordinator
