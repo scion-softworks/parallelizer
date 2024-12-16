@@ -133,4 +133,14 @@ function TaskCoordinator.DispatchTask(
 	end, ...)
 end
 
+function TaskCoordinator.Destroy(self: Types.TaskCoordinator)
+	for _, connection in self.connections do
+		connection:Disconnect()
+	end
+
+	for _, actor in self.actors do
+		actor:Destroy()
+	end
+end
+
 return TaskCoordinator :: Types.TaskCoordinator
