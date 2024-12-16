@@ -51,11 +51,9 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		for taskId = startingTaskId, math.min(startingTaskId + (batchSize - 1), threadCount) do
 			local res = callback(taskId, userMemory, ...)
 			
-			if type(res) ~= 'table' then
-				error("Task Callback must return a table value")
-			else
-				table.insert(responses, res)
-			end
+			assert(type(responses) == 'table', 'Expected a table for task callback return value')
+
+			table.insert(responses, res)
 		end
 
 		task.desynchronize()
