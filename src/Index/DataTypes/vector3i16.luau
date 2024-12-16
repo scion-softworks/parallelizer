@@ -1,1 +1,1 @@
-return { 'v3i16', '8' }
+return { 'v3i16', '6' }
