@@ -78,7 +78,6 @@ function TaskCoordinator.DispatchTask(
 	local sharedResultSize = threadCount // batchSize
 	local sharedBufferResult = SharedTable.new(table.create(sharedResultSize))
 	local connection;
-	local count = 0
 
 	connection = RunService.PreSimulation:Connect(function()
 		if SharedTable.size(sharedBufferResult) == sharedResultSize then
@@ -114,8 +113,6 @@ function TaskCoordinator.DispatchTask(
 							cursor = Deserializer.deserializeToTable(bufferBatch, cursor, dataType[1], data)
 						end
 					end
-
-					count += 1
 				end
 
 				debug.profileend()
