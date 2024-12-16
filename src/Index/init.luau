@@ -102,6 +102,7 @@ function Index.CreateTaskCoordinator(workerScript: Script & LocalScript, actorSt
 	return table.freeze(setmetatable({
 		actorCount = actorCount;
 		actors = actors;
+		connections = {};
 	}, {__index = TaskCoordinator}))
 end
 
