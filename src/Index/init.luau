@@ -125,6 +125,7 @@ DataType.vector3i16 = require(DataTypeFolder.vector3i16)
 DataType.vector2 = require(DataTypeFolder.vector2)
 DataType.vector2i16 = require(DataTypeFolder.vector2i16)
 DataType.color3 = require(DataTypeFolder.color3)
+DataType.color3u8 = require(DataTypeFolder.color3u8)
 
 Index.DataType = DataType
 

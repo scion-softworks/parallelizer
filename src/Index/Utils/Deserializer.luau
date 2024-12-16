@@ -100,6 +100,14 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 		local b = readf64(buf, cursor)
 		cursor += 8
 		value = Color3.new(r, g, b)
+	elseif dataType == 'color3u8' then
+		local r = readu8(buf, cursor)
+		cursor += 1
+		local g = readu8(buf, cursor)
+		cursor += 1
+		local b = readu8(buf, cursor)
+		cursor += 1
+		value = Color3.fromRGB(r, g, b)
 	end
 
 	return value, cursor
