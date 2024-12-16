@@ -4,6 +4,9 @@
 local Types = require(script.Parent.Parent.types)
 local Deserializer = {}
 
+local band = bit32.band
+local rshift = bit32.rshift
+
 local readu8 = buffer.readu8
 local readu16 = buffer.readu16
 local readu32 = buffer.readu32
@@ -108,6 +111,19 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 		local b = readu8(buf, cursor)
 		cursor += 1
 		value = Color3.fromRGB(r, g, b)
+	elseif dataType == 'color3b16' then
+		local rgb565 = readu16(buf, cursor)
+		cursor += 2
+
+		local red = band(rshift(rgb565, 11), 0x1F)
+        local green = band(rshift(rgb565, 5), 0x3F)
+        local blue = band(rgb565, 0x1F)
+
+        local r = red / 31
+        local g = green / 63
+        local b = blue / 31
+
+		value = Color3.new(r, g, b)
 	end
 
 	return value, cursor

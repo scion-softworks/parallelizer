@@ -4,6 +4,13 @@ local Types = require(script.Parent.Parent.types)
 
 local Serializer = {}
 
+local floor = math.floor
+local max = math.max
+
+local rshift = bit32.rshift
+local lshift = bit32.lshift
+local bor = bit32.bor
+
 local writeu8 = buffer.writeu8
 local writeu16 = buffer.writeu16
 local writeu32 = buffer.writeu32
@@ -25,14 +32,14 @@ function Serializer.getAlloc(cursor: number, bytes: number, size: number)
     local growthFactor = 4 -- Step multiplier
     local minStep = 64 -- Minimum growth step in bytes
 
-    size = math.max(size * growthFactor, size + minStep)
+    size = max(size * growthFactor, size + minStep)
 
     size -= 1
-    size = bit32.bor(size, bit32.rshift(size, 1))
-    size = bit32.bor(size, bit32.rshift(size, 2))
-    size = bit32.bor(size, bit32.rshift(size, 4))
-    size = bit32.bor(size, bit32.rshift(size, 8))
-    size = bit32.bor(size, bit32.rshift(size, 16))
+    size = bor(size, rshift(size, 1))
+    size = bor(size, rshift(size, 2))
+    size = bor(size, rshift(size, 4))
+    size = bor(size, rshift(size, 8))
+    size = bor(size, rshift(size, 16))
     size += 1
 
     if size < requiredSize then
@@ -175,6 +182,17 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		writeNoAlloc(writeu8, 1)
 		writeValue = b
 		writeNoAlloc(writeu8, 1)
+	elseif dataType == 'color3b16' then
+		assert(typeof(value) == 'Color3', 'Must be a Color3')
+
+		local r = floor(value.R * 31) -- (5-bit scaling)
+		local g = floor(value.G * 63) -- (6-bit scaling, more precision since the human eye is more sensitive to green)
+		local b = floor(value.B * 31) -- (5-bit scaling)
+
+		local rgb565 = bor(lshift(r, 11), lshift(g, 5), b)
+
+		writeValue = rgb565
+		writeNoAlloc(writeu16, 2)
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end
