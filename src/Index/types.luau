@@ -14,6 +14,7 @@ export type Task = {
 export type TaskCoordinator = {
 	actors: {Actor};
 	actorCount: number;
+	connections: {[string]: RBXScriptConnection};
 
 	DefineTask: (
 		self: TaskCoordinator, 
@@ -38,7 +39,9 @@ export type TaskCoordinator = {
 		callback: (any) -> (), 
 		returnMergedRawBuffer: boolean?,
 		...SharedTableValues
-	) -> ()
+	) -> ();
+
+	Destroy: (self: TaskCoordinator) -> ();
 }
 
 return 1
