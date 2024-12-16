@@ -14,7 +14,7 @@ export type Task = {
 export type TaskCoordinator = {
 	actors: {Actor};
 	actorCount: number;
-	connections: {[string]: RBXScriptConnection};
+	connections: {RBXScriptConnection};
 
 	DefineTask: (
 		self: TaskCoordinator, 
