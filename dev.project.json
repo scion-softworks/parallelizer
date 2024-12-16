@@ -3,6 +3,15 @@
 	"tree": {
 		"$className": "DataModel",
 
+		"ServerScriptService": {
+			"tests": { "$path": "tests" }
+		},
+
+		"TestService": {
+			"TestEZ": { "$path": "TestEZ" },
+			"run": { "$path": "runTests.server.luau" }
+		},
+
 		"ReplicatedStorage": {
 			"Parallelizer": {
                 "$path": "src"
