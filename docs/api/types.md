@@ -65,5 +65,7 @@ Vector2 | Vector3 | CFrame | Color3 | UDim | UDim2 | number | boolean | buffer
 		returnMergedRawBuffer: boolean?,
 		...SharedTableValues
 	) -> ()
+
+	Destroy: (self: TaskCoordinator) -> ();
 }
 ```
