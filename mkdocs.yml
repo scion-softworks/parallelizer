@@ -11,6 +11,7 @@ nav:
   - References:
     - Parallelizer: api/index.md
     - Task Coordinator: api/task-coordinator.md
+    - Data Types: api/datatypes.md
     - Types: api/types.md
   - Extras:
     - Philosophy: extras/philosophy.md
