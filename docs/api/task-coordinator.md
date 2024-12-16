@@ -11,6 +11,10 @@ A list of actors, each with its own worker script
 - `number`<br>
 How many actors in the actor pool
 
+### `connections` 
+- `{RBXScriptConnection}`<br>
+A list of PreSimulation connections
+
 ## Methods
 
 ---

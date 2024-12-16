@@ -40,6 +40,7 @@ Vector2 | Vector3 | CFrame | Color3 | UDim | UDim2 | number | boolean | buffer
 {
 	actors: {Actor};
 	actorCount: number;
+	connections: {RBXScriptConnection};
 
 	DefineTask: (
 		self: TaskCoordinator, 
