@@ -9,7 +9,7 @@ A list of actors, each with its own worker script
 
 ### `actorCount` 
 - `number`<br>
-The bindable event to serve as the parallel bridge
+How many actors in the actor pool
 
 ## Methods
 
