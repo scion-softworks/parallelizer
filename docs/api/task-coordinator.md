@@ -67,3 +67,15 @@ __Parameters__
 __Returns__
 
 - `void`
+
+---
+
+### `Destroy`
+
+Disposes the ongoing dispatch connections and the actors
+
+__Parameters__
+
+__Returns__
+
+- `void`
