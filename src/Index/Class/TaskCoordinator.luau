@@ -123,6 +123,8 @@ function TaskCoordinator.DispatchTask(
 		end
 	end)
 
+	table.insert(self.connections, connection)
+
 	task.defer(function(...)
 		local actorIndex = 1
 
