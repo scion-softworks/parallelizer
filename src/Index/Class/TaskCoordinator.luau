@@ -14,8 +14,8 @@ function TaskCoordinator.DefineTask(
 	taskName: string, 
 	taskMetaData: Types.TaskMetaData
 ): Types.Task
-	assert(not taskName:match('%-parallelizer%-internal-def$'), 'Task name cannot end with "-parallelizer-internal"')
-	assert(not taskName:match('%-parallelizer%-internal-mem$'), 'Task name cannot end with "-parallelizer-internal-mem"')
+	assert(not taskName:match('%-parallelizer%-internal%-def$'), 'Task name cannot end with "-parallelizer-internal"')
+	assert(not taskName:match('%-parallelizer%-internal%-mem$'), 'Task name cannot end with "-parallelizer-internal-mem"')
 
 	--> Serialize Packet Definition
 	local packetDef = taskMetaData.packet
