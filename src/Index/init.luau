@@ -9,8 +9,9 @@ local Deserializer = require(script.Utils.Deserializer)
 local Index = {}
 
 function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: number, memory: SharedTable?, ...Types.SharedTableValues) -> {Types.SerializableValues}, cacheLocalMemory: boolean)
-	assert(taskName:match('%-parallelizer-internal%-.+$') == nil, 'Task name cannot end with "-parallelizer-internal-..."')
-	
+	assert(not taskName:match('%-parallelizer%-internal%-def$'), 'Task name cannot end with "-parallelizer-internal"')
+	assert(not taskName:match('%-parallelizer%-internal%-mem$'), 'Task name cannot end with "-parallelizer-internal-mem"')
+		
 	-->> Internal Local Memory
 	local packetDefBytesNeeded: number
 	local packetDefData: {string} = {}
