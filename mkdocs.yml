@@ -8,6 +8,8 @@ nav:
     - Quick Start: 
       - Installation: guides/quick-start/installation.md
       - Getting Started: guides/quick-start/getting-started.md
+    - Tips:
+      - Deriving Data from TaskId: guides/tips/derive-taskid.md
   - References:
     - Parallelizer: api/index.md
     - Task Coordinator: api/task-coordinator.md
