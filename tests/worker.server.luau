@@ -18,6 +18,7 @@ Parallelizer.ListenToTask(Actor, 'all', function(taskId: number): {any}
 		CFrame.new(),
 		Color3.new(),
 		Color3.new(),
-		Color3.new(1, 0.5, 0.25)
+		Color3.new(1, 0.5, 0.25),
+		buffer.create(16)
 	}
 end)

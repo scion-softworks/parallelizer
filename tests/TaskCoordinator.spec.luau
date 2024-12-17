@@ -22,7 +22,8 @@ return function()
 		DataType.cframe;
 		DataType.color3;
 		DataType.color3u8;
-		DataType.color3b16
+		DataType.color3b16;
+		DataType.buffer(16);
 	}
 
 	local TaskCoordinator = Parallelizer.CreateTaskCoordinator(script.Parent.worker, script, 256)
