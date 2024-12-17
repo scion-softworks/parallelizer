@@ -53,3 +53,6 @@ Occupies 3 bytes, 1 byte for each channel. Short for color3uint8
 
 - ### color3b16
 Occupies 2 bytes. 5 bits for red, 6 bits for green, 5 bits for blue. Short for color3bit16. This takes a bit longer to serialize than Color3u8 and Color3
+
+- ### buffer(len)
+Occupies `len` bytes. This takes a bit longer to serialize
