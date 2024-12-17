@@ -11,7 +11,7 @@ local Index = {}
 function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: number, memory: SharedTable?, ...Types.SharedTableValues) -> {Types.SerializableValues}, cacheLocalMemory: boolean)
 	assert(not taskName:match('%-parallelizer%-internal%-def$'), 'Task name cannot end with "-parallelizer-internal"')
 	assert(not taskName:match('%-parallelizer%-internal%-mem$'), 'Task name cannot end with "-parallelizer-internal-mem"')
-		
+
 	-->> Internal Local Memory
 	local packetDefBytesNeeded: number
 	local packetDefData: {string} = {}
@@ -128,6 +128,7 @@ DataType.vector2i16 = require(DataTypeFolder.vector2i16)
 DataType.color3 = require(DataTypeFolder.color3)
 DataType.color3u8 = require(DataTypeFolder.color3u8)
 DataType.color3b16 = require(DataTypeFolder.color3b16)
+DataType.buffer = require(DataTypeFolder.buffer)
 
 Index.DataType = DataType
 

@@ -193,6 +193,10 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 
 		writeValue = rgb565
 		writeNoAlloc(writeu16, 2)
+	elseif dataType == 'buffer' then
+		assert(typeof(value) == 'buffer', 'Must be a buffer')
+		buffer.copy(value, 0, buf, cursor, bytes)
+		cursor += bytes
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end

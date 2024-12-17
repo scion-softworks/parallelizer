@@ -124,6 +124,8 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
         local b = blue / 31
 
 		value = Color3.new(r, g, b)
+	elseif dataType == 'buffer' then
+		value, cursor = Deserializer.deserialize(buf, cursor, dataType)
 	end
 
 	return value, cursor
