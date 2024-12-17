@@ -2,7 +2,7 @@
 1. Add Parallelizer to your `wally.toml`
 ```toml title="wally.toml"
 [dependencies]
-parallelizer = "artzified/parallelizer@0.3.1"
+parallelizer = "artzified/parallelizer@0.3.2"
 ```
 2. Run `wally install`
 
