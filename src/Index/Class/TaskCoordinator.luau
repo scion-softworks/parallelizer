@@ -80,6 +80,7 @@ function TaskCoordinator.DispatchTask(
 	local sharedBufferResult = SharedTable.new(table.create(sharedResultSize))
 	local connection;
 
+	-- TODO: try to find a faster way to do this
 	connection = RunService.PreSimulation:Connect(function()
 		if SharedTable.size(sharedBufferResult) == sharedResultSize then
 			connection:Disconnect()
