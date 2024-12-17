@@ -1,22 +1,28 @@
 A list of supported serializable data types
 
 - ### u8
-Occupies 1 byte, short for unsigned integer 8 bit (uint8)
+Occupies 1 byte, short for unsigned 8 bit integer (uint8)
 
 - ### u16
-Occupies 2 bytes, short for unsigned integer 16 bit (uint16)
+Occupies 2 bytes, short for unsigned 16 bit integer (uint16)
 
 - ### u32
-Occupies 4 bytes, short for unsigned integer 32 bit (uint32)
+Occupies 4 bytes, short for unsigned 32 bit integer (uint32)
 
 - ### i8
-Occupies 1 byte, short for signed integer 8 bit (uint8)
+Occupies 1 byte, short for signed 8 bit integer (int8)
 
 - ### i16
-Occupies 2 bytes, short for signed integer 16 bit (uint16)
+Occupies 2 bytes, short for signed 16 bit integer (int16)
 
 - ### i32
-Occupies 4 bytes, short for signed integer 32 bit (uint32)
+Occupies 4 bytes, short for signed 32 bit integer (int32)
+
+- ### f32
+Occupies 4 bytes, short for 32 bit floating point number
+
+- ### f64
+Occupies 8 bytes, short for 64 bit floating point number
 
 - ### bool
 Occupies 1 byte, serializes as a `u8` (1 or 0)
