@@ -2,7 +2,7 @@ If you haven't already, refer to [Installation](/parallelizer/guides/quick-start
 
 ## What is a Task Coordinator?
 A [Task Coordinator](/parallelizer/api/task-coordinator) is responsible for handling the dispatch of tasks, and managing the deserialization of tasks to be sent back to the main script. You can create a Task Coordinator using [`Parallelizer.CreateTaskCoordinator`](/parallelizer/api#createtaskcoordinator)
-```luau title="init.luau"
+```luau title="init.server.luau"
 local Parallelizer = require(game.ReplicatedStorage.Parallelizer)
 local TaskCoordinator = Parallelizer.CreateTaskCoordinator(script.Worker, script, 256)
 ```
@@ -12,7 +12,7 @@ local TaskCoordinator = Parallelizer.CreateTaskCoordinator(script.Worker, script
 
 ## Creating a Task
 A task can be created using [`TaskCoordinator:DefineTask`](/parallelizer/api/task-coordinator#definetask). It contains the type definitions of what each task should return, which is used for serialization/deserialization purposes
-```luau title="init.luau"
+```luau title="init.server.luau"
 local Parallelizer = require(game.ReplicatedStorage.Parallelizer)
 local TaskCoordinator = Parallelizer.CreateTaskCoordinator(script.Worker, script, 256)
 
@@ -28,7 +28,7 @@ local TestTask = TaskCoordinator:DefineTask('Test', {
 
 ## Creating the worker script
 The worker script is responsible for running parallel tasks dispatched by the Task Coordinator, a worker script may have different tasks connected. The worker script can run the same task more than once if the thread count is higher than the actor count. To connect to a task, you can use [`Parallelizer.ListenToTask`](/parallelizer/api#listentotask)
-```luau title="worker.luau"
+```luau title="worker.server.luau"
 local Actor = script:GetActor()
 if not Actor then return end
 
@@ -41,7 +41,7 @@ end)
 
 ## Dispatching the task
 To dispatch a task, you can use [`TaskCoordinator:DispatchTask`](/parallelizer/api/task-coordinator#dispatchtask) or [`TaskCoordinator:DispatchTaskEqually`](/parallelizer/api/task-coordinator#dispatchtaskequally). Difference between the two are, `DispatchTask` expects a batchSize, while `DispatchTaskEqually` calculates the batchSize for you
-```luau title="init.luau"
+```luau title="init.server.luau"
 local Parallelizer = require(game.ReplicatedStorage.Parallelizer)
 local TaskCoordinator = Parallelizer.CreateTaskCoordinator(script.Worker, script, 256)
 
