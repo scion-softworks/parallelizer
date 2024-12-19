@@ -96,6 +96,7 @@ function TaskCoordinator.DispatchTask(
 					local bufferBatch = buffer.fromstring(bufferStringBatch)
 
 					buffer.copy(buf, cursor, bufferBatch)
+					cursor += taskObject.packetBytesNeeded
 				end
 
 				debug.profileend()
