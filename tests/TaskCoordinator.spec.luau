@@ -21,7 +21,6 @@ return function()
 		DataType.vector2i16;
 		DataType.cframe;
 		DataType.color3;
-		DataType.color3u8;
 		DataType.color3b16;
 		DataType.buffer(16);
 	}
@@ -46,7 +45,7 @@ return function()
 			expect(all).to.be.ok()
 			expect(all.taskName).to.equal('all')
 			expect(all.packetDef).to.be.a('table')
-			expect(all.packetBytesNeeded).to.equal(185)
+			expect(all.packetBytesNeeded).to.equal(161)
 		end)
 	end)
 
@@ -62,7 +61,7 @@ return function()
 			task.wait(1)
 			expect(result).to.be.ok()
 			expect(result).to.be.a('table')
-			expect(#result).to.equal(1024 * #fullPacketDef)
+			expect(#result).to.equal(2 * #fullPacketDef)
 		end)
 	end)
 
