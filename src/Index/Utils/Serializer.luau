@@ -158,6 +158,7 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		writeNoAlloc(writeu16, 2, rgb565)
 	elseif dataType == 'buffer' then
 		assert(typeof(value) == 'buffer', 'Must be a buffer')
+		writeNoAlloc(writeu16, 2, bytes)
 		buffer.copy(value, 0, buf, cursor, bytes)
 		cursor += bytes
 	else
