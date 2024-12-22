@@ -125,7 +125,12 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 
 		value = Color3.new(r, g, b)
 	elseif dataType == 'buffer' then
-		value, cursor = Deserializer.deserialize(buf, cursor, dataType)
+		local len = readu16(buf, cursor)
+		cursor += 2
+		
+		value = buffer.create(len)
+		buffer.copy(value :: buffer, 0, buf, cursor, len)
+		cursor += len
 	end
 
 	return value, cursor
