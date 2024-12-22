@@ -46,10 +46,7 @@ Occupies 24 bytes, 2 byte for each axis (XY). Short for vector2int16
 Occupies 48 bytes, 24 bytes for XYZ positional components, another 24 bytes for XYZ rotational components
 
 - ### color3
-Occupies 24 bytes, 8 bytes for each channel
-
-- ### color3u8
-Occupies 3 bytes, 1 byte for each channel. Short for color3uint8
+Occupies 3 bytes, 1 byte for each channel
 
 - ### color3b16
 Occupies 2 bytes. 5 bits for red, 6 bits for green, 5 bits for blue. Short for color3bit16. This takes a bit longer to serialize than Color3u8 and Color3
