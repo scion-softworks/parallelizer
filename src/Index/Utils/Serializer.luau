@@ -142,14 +142,6 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'color3' then
 		assert(typeof(value) == 'Color3', 'Must be a Color3')
 
-		local r, g, b = value.R, value.G, value.B
-		
-		writeNoAlloc(writef64, 8, r)
-		writeNoAlloc(writef64, 8, g)
-		writeNoAlloc(writef64, 8, b)
-	elseif dataType == 'color3u8' then
-		assert(typeof(value) == 'Color3', 'Must be a Color3')
-
 		local r, g, b = value.R * 255, value.G * 255, value.B * 255
 
 		writeNoAlloc(writeu8, 1, r)
