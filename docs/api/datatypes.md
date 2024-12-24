@@ -28,7 +28,7 @@ Occupies 8 bytes, short for 64 bit floating point number
 Occupies 1 byte, serializes as a `u8` (1 or 0)
 
 - ### str(len)
-Occupies `len+4` bytes, 4 extra bytes for storing the length as a u32
+Occupies `len+4` bytes, 4 extra bytes for storing the length (u32) 
 
 - ### vector3
 Occupies 24 bytes, 8 bytes for each axis (XYZ)
@@ -52,4 +52,4 @@ Occupies 3 bytes, 1 byte for each channel
 Occupies 2 bytes. 5 bits for red, 6 bits for green, 5 bits for blue. Short for color3bit16. This takes a bit longer to serialize than Color3u8 and Color3
 
 - ### buffer(len)
-Occupies `len` bytes. This takes a bit longer to serialize
+Occupies `len+2` bytes. 2 extra bytes to store the buffer length (u16). This takes a bit longer to serialize
