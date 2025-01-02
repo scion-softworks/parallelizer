@@ -102,7 +102,7 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		assert(type(value) == 'string')
 
 		local len = #value
-		writeNoAlloc(writeu32, 4, len)
+		writeNoAlloc(writeu32, len, 4)
 		writeNoAlloc(writestring, value, len)
 	elseif dataType == 'v3' then --> Non-primitive types
 		assert(typeof(value) == 'Vector3', 'Must be a Vector3')
