@@ -9,7 +9,7 @@ Given a grid or matrix, you can calculate the X and Y positions from the taskId 
 
 ```luau
 local function getXYFromTaskId(taskId: number, width: number)
-	return taskId // width, taskId % width -- x, y
+	return taskId % width, taskId // width -- x, y
 end
 ```
 Example usage:
