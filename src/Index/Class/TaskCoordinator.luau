@@ -107,11 +107,11 @@ function TaskCoordinator.DispatchTask(
 
 				debug.profilebegin('packet batch deserialization')
 
-				for _, bufferStringBatch in sharedBufferResult do
+				for batchIndex, bufferStringBatch in sharedBufferResult do
 					local bufferBatch = buffer.fromstring(bufferStringBatch)
-					for batch = 1, batchSize do
-						local cursor = 0
+					local cursor = 0
 
+					for batch = 1, batchSize do
 						for i, dataType in taskObject.packetDef do
 							cursor = Deserializer.deserializeToTable(bufferBatch, cursor, dataType[1], data)
 						end
