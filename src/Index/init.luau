@@ -48,9 +48,10 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 
 		debug.profilebegin('batch task callback fire')
 		
+		local memory = userMemory
 		local responses = table.create(batchSize)
 		for taskId = startingTaskId, math.min(startingTaskId + (batchSize - 1), threadCount) do
-			local res = callback(taskId, userMemory, ...)
+			local res = callback(taskId, memory, ...)
 			
 			assert(type(responses) == 'table', 'Expected a table for task callback return value')
 
