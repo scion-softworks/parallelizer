@@ -21,6 +21,12 @@ export type TaskCoordinator = {
 		taskName: string, 
 		taskMetaData: TaskMetaData
 	) -> Task;
+
+	SetTaskLocalMemory: (
+		self: TaskCoordinator, 
+		taskObject: Task, 
+		newLocalMemory: SharedTable
+	) -> ();
 	
 	DispatchTask: (
 		self: TaskCoordinator, 

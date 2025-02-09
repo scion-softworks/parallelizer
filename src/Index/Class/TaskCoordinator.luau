@@ -50,6 +50,16 @@ function TaskCoordinator.DefineTask(
 	return { taskName = taskName, packetDef = packetDef, packetBytesNeeded = bytesNeeded }
 end
 
+function TaskCoordinator.SetTaskLocalMemory(
+	self: Types.TaskCoordinator,
+	taskObject: Types.Task,
+	newLocalMemory: SharedTable
+): ()
+	for _, actor: Actor in self.actors do
+		actor:SendMessage(`{taskObject.taskName}-parallelizer-internal-mem`, newLocalMemory)
+	end
+end
+
 function TaskCoordinator.DispatchTaskEqually(
 	self: Types.TaskCoordinator,
 	taskObject: Types.Task,
