@@ -1,7 +1,7 @@
 site_name: Parallelizer
-site_url: https://artzified.github.io/parallelizer/
-repo_url: https://github.com/Artzified/parallelizer
-repo_name: Artzified/parallelizer
+site_url: https://scion-softworks.github.io/parallelizer/
+repo_url: https://github.com/scion-softworks/parallelizer
+repo_name: scion-softworks/parallelizer
 nav:
   - Home: index.md
   - Guides:
@@ -10,6 +10,7 @@ nav:
       - Getting Started: guides/quick-start/getting-started.md
     - Tips:
       - Deriving Data from TaskId: guides/tips/derive-taskid.md
+      - Choosing the right actor count: guides/tips/choosing-actor-count.md
   - References:
     - Parallelizer: api/index.md
     - Task Coordinator: api/task-coordinator.md
