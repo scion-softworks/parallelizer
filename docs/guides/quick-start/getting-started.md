@@ -36,7 +36,7 @@ local Parallelizer = require(game.ReplicatedStorage.Parallelizer)
 
 Parallelizer.ListenToTask(Actor, 'Test', function(taskId, localMemory)
 	return {2^taskId, localMemory[1]} -- localMemory[1] is 'Hello World'
-end, true)
+end, true) -- true specifies that it should load and store the localMemory
 ```
 
 ## Dispatching the task
