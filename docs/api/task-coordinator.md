@@ -43,7 +43,7 @@ A proxy to [`DispatchTask`](#dispatchtask), batchSize will be calculated automat
 
 __Parameters__
 
-- __taskObject__:__ [`Task`](/parallelizer/api/types#task)<br>
+- __taskObject__: [`Task`](/parallelizer/api/types#task)<br>
 - __threadCount:__ `number`<br>
 - __callback:__ `(result: {Types.SerializableValues}) -> void`<br>
 - __useMergedBuffer:__ `boolean?`<br>
