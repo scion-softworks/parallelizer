@@ -51,7 +51,7 @@ return function()
 
 	describe("TaskCoordinator:DispatchTask", function()
 		if not RunService:IsRunning() then
-			SKIP() -- for some reason TestEZ companion can't do parallel ig
+			SKIP() -- For some reason TestEZ companion is unable to utilize parallelism.
 		end
 		it("should be able to dispatch the task with all data types", function()
 			local result
