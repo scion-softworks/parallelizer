@@ -27,7 +27,7 @@ local TestTask = TaskCoordinator:DefineTask('Test', {
 ```
 
 ## Creating the worker script
-The worker script is responsible for running parallel tasks dispatched by the Task Coordinator, a worker script may have different tasks connected. The worker script can run the same task more than once if the thread count is higher than the actor count. To connect to a task, you can use [`Parallelizer.ListenToTask`](/parallelizer/api#listentotask)
+The worker script is responsible for running parallel tasks dispatched by the Task Coordinator, a worker script may have more than 1 unique tasks connected. The worker script can run the same task more than once if the thread count is higher than the actor count. To connect to a task, you can use [`Parallelizer.ListenToTask`](/parallelizer/api#listentotask)
 ```luau title="worker.server.luau"
 local Actor = script:GetActor()
 if not Actor then return end
