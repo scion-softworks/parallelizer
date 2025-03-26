@@ -1,7 +1,5 @@
 --!native
 --!optimize 2
-local RunService = game:GetService('RunService')
-
 local Types = require(script.Parent.Parent.types)
 
 local Deserializer = require(script.Parent.Parent.Utils.Deserializer)
@@ -93,23 +91,23 @@ function TaskCoordinator.DispatchTask(
 		if returnMergedBuffer then
 			buffer.copy(data :: buffer, (index-1) * taskObject.packetBytesNeeded, batchBufferResult)
 		else
-					local cursor = 0
+			local cursor = 0
 			local batchData = table.create(batchSize * #taskObject.packetDef)
 
 			-- for all batches/chunks in the batch
-					for batch = 1, batchSize do
+			for batch = 1, batchSize do
 				-- for all data elements in bufferBatch within the batches/chunks
-						for i, dataType in taskObject.packetDef do
+				for i, dataType in taskObject.packetDef do
 					cursor = Deserializer.deserializeToTable(batchBufferResult, cursor, dataType[1], batchData)
-						end
-					end
+				end
+			end
 
 			table.move(batchData, 1, #batchData, (index - 1) * #taskObject.packetDef + 1, data)
-				end
+		end
 
 		if count == threadCount // batchSize then
 			connection:Disconnect()
-				callback(data)
+			callback(data)
 		end
 	end)
 
