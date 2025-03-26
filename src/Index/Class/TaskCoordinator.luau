@@ -84,49 +84,32 @@ function TaskCoordinator.DispatchTask(
 
 	local data: buffer | {any} = if returnMergedBuffer then buffer.create(taskObject.packetBytesNeeded * threadCount) else {}
 	local connection;
+	local count = 0
 
 	-- TODO: try to find a faster way to do this
-	connection = RunService.PreSimulation:Connect(function()
-		if SharedTable.size(sharedBufferResult) == sharedResultSize then
-			connection:Disconnect()
+	connection = self.bindable.Event:Connect(function(index: number, batchBufferResult: buffer)		
+		count += 1
 
-			if useMergedBuffer then
-				local size = taskObject.packetBytesNeeded * batchSize
-				local buf = buffer.create(size)
-
-				debug.profilebegin('packet batch buffer merging')
-
-				local cursor = 0
-				for _, bufferStringBatch in sharedBufferResult do
-					local bufferBatch = buffer.fromstring(bufferStringBatch)
-
-					buffer.copy(buf, cursor, bufferBatch)
-					cursor += taskObject.packetBytesNeeded
-				end
-
-				debug.profileend()
-
-				callback(buf)
-			else
-				local data = table.create(threadCount * #taskObject.packetDef)
-
-				debug.profilebegin('packet batch deserialization')
-
-				for batchIndex, bufferStringBatch in sharedBufferResult do
-					local bufferBatch = buffer.fromstring(bufferStringBatch)
+		if returnMergedBuffer then
+			buffer.copy(data :: buffer, (index-1) * taskObject.packetBytesNeeded, batchBufferResult)
+		else
 					local cursor = 0
+			local batchData = table.create(batchSize * #taskObject.packetDef)
 
+			-- for all batches/chunks in the batch
 					for batch = 1, batchSize do
+				-- for all data elements in bufferBatch within the batches/chunks
 						for i, dataType in taskObject.packetDef do
-							cursor = Deserializer.deserializeToTable(bufferBatch, cursor, dataType[1], data)
+					cursor = Deserializer.deserializeToTable(batchBufferResult, cursor, dataType[1], batchData)
 						end
 					end
+
+			table.move(batchData, 1, #batchData, (index - 1) * #taskObject.packetDef + 1, data)
 				end
 
-				debug.profileend()
-
+		if count == threadCount // batchSize then
+			connection:Disconnect()
 				callback(data)
-			end
 		end
 	end)
 
