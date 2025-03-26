@@ -58,3 +58,5 @@ TaskCoordinator:DispatchTask(TestTask, 1024, 8, function(result: {number, string
 	print(result) -- An array containing the results of the task
 end)
 ```
+!!! tip
+	To maximize performance, set the [SignalBehavior](https://create.roblox.com/docs/reference/engine/enums/SignalBehavior) to Immediate in Workspace properties
