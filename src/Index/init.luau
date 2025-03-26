@@ -42,10 +42,7 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		debug.profileend()
 	end)
 
-	actor:BindToMessageParallel(taskName, function(startingTaskId: number, dispatchBuf: buffer, result: SharedTable, ...: Types.SharedTableValues)
-		local threadCount = buffer.readu32(dispatchBuf, 0)
-		local batchSize = buffer.readu32(dispatchBuf, 4)
-
+	actor:BindToMessageParallel(taskName, function(startingTaskId: number, threadCount: number, batchSize: number, bindable: BindableEvent, ...: Types.SharedTableValues)
 		debug.profilebegin('batch task callback fire')
 		
 		local memory = userMemory
