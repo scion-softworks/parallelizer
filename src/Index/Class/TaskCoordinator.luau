@@ -82,12 +82,7 @@ function TaskCoordinator.DispatchTask(
 )
 	batchSize = math.max(batchSize, 1)
 
-	local dispatchBuffer = buffer.create(8)
-	buffer.writeu32(dispatchBuffer, 0, threadCount)
-	buffer.writeu32(dispatchBuffer, 4, batchSize)
-
-	local sharedResultSize = threadCount // batchSize
-	local sharedBufferResult = SharedTable.new(table.create(sharedResultSize))
+	local data: buffer | {any} = if returnMergedBuffer then buffer.create(taskObject.packetBytesNeeded * threadCount) else {}
 	local connection;
 
 	-- TODO: try to find a faster way to do this
@@ -141,7 +136,7 @@ function TaskCoordinator.DispatchTask(
 		local actorIndex = 1
 
 		for taskId = 1, threadCount, batchSize do
-			self.actors[actorIndex]:SendMessage(taskObject.taskName, taskId, dispatchBuffer, sharedBufferResult, ...)
+			self.actors[actorIndex]:SendMessage(taskObject.taskName, taskId, threadCount, batchSize, self.bindable, ...)
 
 			actorIndex = (actorIndex % self.actorCount) + 1
 		end
