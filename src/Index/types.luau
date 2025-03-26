@@ -14,6 +14,7 @@ export type Task = {
 export type TaskCoordinator = {
 	actors: {Actor};
 	actorCount: number;
+	bindable: BindableEvent;
 	connections: {RBXScriptConnection};
 
 	DefineTask: (
