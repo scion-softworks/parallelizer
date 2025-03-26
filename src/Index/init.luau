@@ -81,7 +81,7 @@ function Index.ListenToTask(actor: Actor, taskName: string, callback: (taskId: n
 		
 		debug.profileend()
 
-		result[((startingTaskId-1) // batchSize)+1] = buffer.tostring(batchBuf)
+		bindable:Fire(startingTaskId, batchBuf)
 	end)
 end
 
@@ -101,6 +101,7 @@ function Index.CreateTaskCoordinator(workerScript: Script & LocalScript, actorSt
 	return table.freeze(setmetatable({
 		actorCount = actorCount;
 		actors = actors;
+		bindable = Instance.new('BindableEvent');
 		connections = {};
 	}, {__index = TaskCoordinator}))
 end
