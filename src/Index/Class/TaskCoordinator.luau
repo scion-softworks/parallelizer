@@ -65,10 +65,10 @@ function TaskCoordinator.DispatchTaskEqually(
 	taskObject: Types.Task,
 	threadCount: number,
 	callback: (any) -> nil,
-	useMergedBuffer: boolean?,
+	returnMergedBuffer: boolean?,
 	...: Types.SharedTableValues
 ): ()
-	self:DispatchTask(taskObject, threadCount, threadCount // self.actorCount, callback, useMergedBuffer, ...)
+	self:DispatchTask(taskObject, threadCount, threadCount // self.actorCount, callback, returnMergedBuffer, ...)
 end
 
 function TaskCoordinator.DispatchTask(
@@ -77,7 +77,7 @@ function TaskCoordinator.DispatchTask(
 	threadCount: number,
 	batchSize: number,
 	callback: (any) -> nil,
-	useMergedBuffer: boolean?,
+	returnMergedBuffer: boolean?,
 	...: Types.SharedTableValues
 )
 	batchSize = math.max(batchSize, 1)
