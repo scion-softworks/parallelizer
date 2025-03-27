@@ -45,6 +45,12 @@ Occupies 24 bytes, 2 byte for each axis (XY). Short for vector2int16
 - ### cframe
 Occupies 48 bytes, 24 bytes for XYZ positional components, another 24 bytes for XYZ rotational components
 
+- ### cframef32 <span class="badge badge--experimental">EXPERIMENTAL</span>
+Occupies 24 bytes, 16 bytes for XYZ positional components, another 16 bytes for XYZ rotational components
+
+- ### cframe18 <span class="badge badge--experimental">EXPERIMENTAL</span>
+Occupies 18 bytes, 12 bytes for XYZ positional components, 6 bytes for XYZ rotational components (`4.8 * 10^-5` radians or `2.75 * 10^-3` degrees of precision loss at most)
+
 - ### color3
 Occupies 3 bytes, 1 byte for each channel
 

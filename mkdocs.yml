@@ -2,6 +2,8 @@ site_name: Parallelizer
 site_url: https://scion-softworks.github.io/parallelizer/
 repo_url: https://github.com/scion-softworks/parallelizer
 repo_name: scion-softworks/parallelizer
+extra_css:
+  - css/extra.css
 nav:
   - Home: index.md
   - Guides:
