@@ -63,7 +63,7 @@ return function()
 			task.wait(1)
 			expect(result).to.be.ok()
 			expect(result).to.be.a('table')
-			expect(#result).to.equal(2 * #fullPacketDef)
+			expect(#result).to.equal(1024 * #fullPacketDef)
 		end)
 	end)
 
