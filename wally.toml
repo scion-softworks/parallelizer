@@ -1,6 +1,6 @@
 [package]
 name = "artzified/parallelizer"
-version = "1.0.5"
+version = "1.1.0-rc.1"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
