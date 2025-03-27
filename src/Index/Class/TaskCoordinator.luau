@@ -133,6 +133,8 @@ function TaskCoordinator.Destroy(self: Types.TaskCoordinator)
 		actor:Destroy()
 	end
 
+	self.bindable:Destroy()
+
 	table.clear(self.actors)
 	table.clear(self.connections)
 end
