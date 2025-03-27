@@ -83,21 +83,21 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 
 	--> Primitive Types
 	if dataType == 'u8' then
-		writeNoAlloc(writeu8, value :: number)
+		writeNoAlloc(writeu8, value :: number, 1)
 	elseif dataType == 'u16' then
-		writeNoAlloc(writeu16, value :: number)
+		writeNoAlloc(writeu16, value :: number, 2)
 	elseif dataType == 'u32' then
-		writeNoAlloc(writeu32, value :: number)
+		writeNoAlloc(writeu32, value :: number, 3)
 	elseif dataType == 'i8' then
-		writeNoAlloc(writei8, value :: number)
+		writeNoAlloc(writei8, value :: number, 1)
 	elseif dataType == 'i16' then
-		writeNoAlloc(writei16, value :: number)
+		writeNoAlloc(writei16, value :: number, 2)
 	elseif dataType == 'i32' then
-		writeNoAlloc(writei32, value :: number)
+		writeNoAlloc(writei32, value :: number, 3)
 	elseif dataType == 'f32' then
-		writeNoAlloc(writef32, value :: number)
+		writeNoAlloc(writef32, value :: number, 4)
 	elseif dataType == 'f64' then
-		writeNoAlloc(writef64, value :: number)
+		writeNoAlloc(writef64, value :: number, 8)
 	elseif dataType == 'bool' then
 		writeNoAlloc(writeu8, if value then 1 else 0)
 	elseif dataType == 'str' then
