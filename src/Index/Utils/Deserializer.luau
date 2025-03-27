@@ -95,6 +95,21 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 		local rz = readf64(buf, cursor)
 		cursor += 8
 		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+	elseif dataType == 'cframef32' then
+		local x = readf32(buf, cursor)
+		cursor += 4
+		local y = readf32(buf, cursor)
+		cursor += 4
+		local z = readf32(buf, cursor)
+		cursor += 4
+	
+		local rx = readf32(buf, cursor)
+		cursor += 4
+		local ry = readf32(buf, cursor)
+		cursor += 4
+		local rz = readf32(buf, cursor)
+		cursor += 4
+		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
 	elseif dataType == 'color3' then
 		local r = readf64(buf, cursor)
 		cursor += 8
