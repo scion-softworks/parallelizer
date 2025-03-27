@@ -20,6 +20,8 @@ return function()
 		DataType.vector2;
 		DataType.vector2i16;
 		DataType.cframe;
+		DataType.cframef32;
+		DataType.cframe18;
 		DataType.color3;
 		DataType.color3b16;
 		DataType.buffer(16);
@@ -45,7 +47,7 @@ return function()
 			expect(all).to.be.ok()
 			expect(all.taskName).to.equal('all')
 			expect(all.packetDef).to.be.a('table')
-			expect(all.packetBytesNeeded).to.equal(161)
+			expect(all.packetBytesNeeded).to.equal(205)
 		end)
 	end)
 
