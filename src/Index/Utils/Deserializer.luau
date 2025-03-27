@@ -133,21 +133,13 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 
 		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
 	elseif dataType == 'color3' then
-		local r = readf64(buf, cursor)
-		cursor += 8
-		local g = readf64(buf, cursor)
-		cursor += 8
-		local b = readf64(buf, cursor)
-		cursor += 8
-		value = Color3.new(r, g, b)
-	elseif dataType == 'color3u8' then
 		local r = readu8(buf, cursor)
 		cursor += 1
 		local g = readu8(buf, cursor)
 		cursor += 1
 		local b = readu8(buf, cursor)
 		cursor += 1
-		value = Color3.fromRGB(r, g, b)
+		value = Color3.new(r, g, b)
 	elseif dataType == 'color3b16' then
 		local rgb565 = readu16(buf, cursor)
 		cursor += 2
