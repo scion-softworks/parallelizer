@@ -4,6 +4,8 @@
 local Types = require(script.Parent.Parent.types)
 local Deserializer = {}
 
+local pi = math.pi
+
 local band = bit32.band
 local rshift = bit32.rshift
 

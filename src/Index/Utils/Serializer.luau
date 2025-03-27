@@ -5,7 +5,9 @@ local Types = require(script.Parent.Parent.types)
 local Serializer = {}
 
 local floor = math.floor
+local round = math.round
 local max = math.max
+local pi = math.pi
 
 local rshift = bit32.rshift
 local lshift = bit32.lshift
