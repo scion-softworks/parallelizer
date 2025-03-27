@@ -109,76 +109,76 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'v3' then --> Non-primitive types
 		assert(typeof(value) == 'Vector3', 'Must be a Vector3')
 
-		writeNoAlloc(writef64, 8, value.X)
-		writeNoAlloc(writef64, 8, value.Y)
-		writeNoAlloc(writef64, 8, value.Z)
+		writeNoAlloc(writef64, value.X, 8)
+		writeNoAlloc(writef64, value.Y, 8)
+		writeNoAlloc(writef64, value.Z, 8)
 	elseif dataType == 'v3i16' then
 		assert(typeof(value) == 'Vector3' or typeof(value) == 'Vector3int16', 'Must be a Vector3 or Vector3int16')
 
-		writeNoAlloc(writei16, 2, value.X)
-		writeNoAlloc(writei16, 2, value.Y)
-		writeNoAlloc(writei16, 2, value.Z)
+		writeNoAlloc(writei16, value.X, 2)
+		writeNoAlloc(writei16, value.Y, 2)
+		writeNoAlloc(writei16, value.Z, 2)
 	elseif dataType == 'v2' then
 		assert(typeof(value) == 'Vector2', 'Must be a Vector2')
 
-		writeNoAlloc(writef64, 8, value.X)
-		writeNoAlloc(writef64, 8, value.Y)
+		writeNoAlloc(writef64, value.X, 8)
+		writeNoAlloc(writef64, value.Y, 8)
 	elseif dataType == 'v2i16' then
 		assert(typeof(value) == 'Vector2' or typeof(value) == 'Vector2int16', 'Must be a Vector2 or Vector2int16')
 
-		writeNoAlloc(writei16, 2, value.X)
-		writeNoAlloc(writei16, 2, value.Y)
+		writeNoAlloc(writei16, value.X, 2)
+		writeNoAlloc(writei16, value.Y, 2)
 	elseif dataType == 'cframe' then
 		assert(typeof(value) == 'CFrame', 'Must be a CFrame')
 
 		local x, y, z = value.X, value.Y, value.Z
 		local rx, ry, rz = value:ToEulerAnglesXYZ()
 
-		writeNoAlloc(writef64, 8, x)
-		writeNoAlloc(writef64, 8, y)
-		writeNoAlloc(writef64, 8, z)
+		writeNoAlloc(writef64, x, 8)
+		writeNoAlloc(writef64, y, 8)
+		writeNoAlloc(writef64, z, 8)
 
-		writeNoAlloc(writef64, 8, rx)
-		writeNoAlloc(writef64, 8, ry)
-		writeNoAlloc(writef64, 8, rz)
+		writeNoAlloc(writef64, rx, 8)
+		writeNoAlloc(writef64, ry, 8)
+		writeNoAlloc(writef64, rz, 8)
 	elseif dataType == 'cframef32' then
 		assert(typeof(value) == 'CFrame', 'Must be a CFrame')
 
 		local x, y, z = value.X, value.Y, value.Z
 		local rx, ry, rz = value:ToEulerAnglesXYZ()
 	
-		writeNoAlloc(writef32, 4, x)
-		writeNoAlloc(writef32, 4, y)
-		writeNoAlloc(writef32, 4, z)
+		writeNoAlloc(writef32, x, 4)
+		writeNoAlloc(writef32, y, 4)
+		writeNoAlloc(writef32, z, 4)
 	
-		writeNoAlloc(writef32, 4, rx)
-		writeNoAlloc(writef32, 4, ry)
-		writeNoAlloc(writef32, 4, rz)
+		writeNoAlloc(writef32, rx, 4)
+		writeNoAlloc(writef32, ry, 4)
+		writeNoAlloc(writef32, rz, 4)
 	elseif dataType == 'cframe18' then
 		assert(typeof(value) == 'CFrame', 'Must be a CFrame')
 	
 		local x, y, z = value.X, value.Y, value.Z
 		local rx, ry, rz = value:ToEulerAnglesXYZ()
 		
-		writeNoAlloc(writef32, 4, x)
-		writeNoAlloc(writef32, 4, y)
-		writeNoAlloc(writef32, 4, z)
+		writeNoAlloc(writef32, x, 4)
+		writeNoAlloc(writef32, y, 4)
+		writeNoAlloc(writef32, z, 4)
 
 		local qrx = round((rx - (-pi)) / (pi - (-pi)) * 65535)
 		local qry = round((ry - (-pi)) / (pi - (-pi)) * 65535)
 		local qrz = round((rz - (-pi)) / (pi - (-pi)) * 65535)
 		
-		writeNoAlloc(writei16, 2, qrx)
-		writeNoAlloc(writei16, 2, qry)
-		writeNoAlloc(writei16, 2, qrz)
+		writeNoAlloc(writei16, qrx, 2)
+		writeNoAlloc(writei16, qry, 2)
+		writeNoAlloc(writei16, qrz, 2)
 	elseif dataType == 'color3' then
 		assert(typeof(value) == 'Color3', 'Must be a Color3')
 
 		local r, g, b = value.R * 255, value.G * 255, value.B * 255
 
-		writeNoAlloc(writeu8, 1, r)
-		writeNoAlloc(writeu8, 1, g)
-		writeNoAlloc(writeu8, 1, b)
+		writeNoAlloc(writeu8, r, 1)
+		writeNoAlloc(writeu8, g, 1)
+		writeNoAlloc(writeu8, b, 1)
 	elseif dataType == 'color3b16' then
 		assert(typeof(value) == 'Color3', 'Must be a Color3')
 
@@ -187,10 +187,10 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		local b = floor(value.B * 31) -- (5-bit scaling)
 
 		local rgb565 = bor(lshift(r, 11), lshift(g, 5), b)
-		writeNoAlloc(writeu16, 2, rgb565)
+		writeNoAlloc(writeu16, rgb565, 2)
 	elseif dataType == 'buffer' then
 		assert(typeof(value) == 'buffer', 'Must be a buffer')
-		writeNoAlloc(writeu16, 2, bytes)
+		writeNoAlloc(writeu16, bytes, 2)
 		buffer.copy(value, 0, buf, cursor, bytes)
 		cursor += bytes
 	else
