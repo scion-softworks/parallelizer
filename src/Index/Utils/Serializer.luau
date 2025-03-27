@@ -152,6 +152,23 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		writeNoAlloc(writef32, 4, rx)
 		writeNoAlloc(writef32, 4, ry)
 		writeNoAlloc(writef32, 4, rz)
+	elseif dataType == 'cframe18' then
+		assert(typeof(value) == 'CFrame', 'Must be a CFrame')
+	
+		local x, y, z = value.X, value.Y, value.Z
+		local rx, ry, rz = value:ToEulerAnglesXYZ()
+		
+		writeNoAlloc(writef32, 4, x)
+		writeNoAlloc(writef32, 4, y)
+		writeNoAlloc(writef32, 4, z)
+
+		local qrx = round((rx - (-pi)) / (pi - (-pi)) * 65535)
+		local qry = round((ry - (-pi)) / (pi - (-pi)) * 65535)
+		local qrz = round((rz - (-pi)) / (pi - (-pi)) * 65535)
+		
+		writeNoAlloc(writei16, 2, qrx)
+		writeNoAlloc(writei16, 2, qry)
+		writeNoAlloc(writei16, 2, qrz)
 	elseif dataType == 'color3' then
 		assert(typeof(value) == 'Color3', 'Must be a Color3')
 

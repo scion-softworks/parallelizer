@@ -110,6 +110,26 @@ function Deserializer.deserialize(buf: buffer, cursor: number, dataType: string)
 		local rz = readf32(buf, cursor)
 		cursor += 4
 		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+	elseif dataType == 'cframe18' then
+		local x = readf32(buf, cursor)
+		cursor += 4
+		local y = readf32(buf, cursor)
+		cursor += 4
+		local z = readf32(buf, cursor)
+		cursor += 4
+
+		local qrx = readi16(buf, cursor)
+		cursor += 2
+		local qry = readi16(buf, cursor)
+		cursor += 2
+		local qrz = readi16(buf, cursor)
+		cursor += 2
+
+		local rx = (qrx / 65535) * (pi - (-pi)) + (-pi)
+		local ry = (qry / 65535) * (pi - (-pi)) + (-pi)
+		local rz = (qrz / 65535) * (pi - (-pi)) + (-pi)
+
+		value = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
 	elseif dataType == 'color3' then
 		local r = readf64(buf, cursor)
 		cursor += 8
