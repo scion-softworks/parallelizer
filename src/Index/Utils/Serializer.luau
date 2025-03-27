@@ -87,19 +87,19 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 	elseif dataType == 'u16' then
 		writeNoAlloc(writeu16, value :: number, 2)
 	elseif dataType == 'u32' then
-		writeNoAlloc(writeu32, value :: number, 3)
+		writeNoAlloc(writeu32, value :: number, 4)
 	elseif dataType == 'i8' then
 		writeNoAlloc(writei8, value :: number, 1)
 	elseif dataType == 'i16' then
 		writeNoAlloc(writei16, value :: number, 2)
 	elseif dataType == 'i32' then
-		writeNoAlloc(writei32, value :: number, 3)
+		writeNoAlloc(writei32, value :: number, 4)
 	elseif dataType == 'f32' then
 		writeNoAlloc(writef32, value :: number, 4)
 	elseif dataType == 'f64' then
 		writeNoAlloc(writef64, value :: number, 8)
 	elseif dataType == 'bool' then
-		writeNoAlloc(writeu8, if value then 1 else 0)
+		writeNoAlloc(writeu8, if value then 1 else 0, 1)
 	elseif dataType == 'str' then
 		assert(type(value) == 'string')
 
@@ -190,9 +190,10 @@ function Serializer.SerializeToBuffer(value: Types.SerializableValues, dataType:
 		writeNoAlloc(writeu16, rgb565, 2)
 	elseif dataType == 'buffer' then
 		assert(typeof(value) == 'buffer', 'Must be a buffer')
-		writeNoAlloc(writeu16, bytes, 2)
-		buffer.copy(value, 0, buf, cursor, bytes)
-		cursor += bytes
+
+		writeNoAlloc(writeu16, bytes - 2, 2)
+		buffer.copy(buf, cursor, value, 0, bytes - 2)
+		cursor += bytes - 2
 	else
 		error(`Invalid data type: "{dataType}"`)
 	end
